@@ -1,0 +1,8 @@
+---
+layout: archive
+title: Tags
+---
+
+{% for tag in collections.tagList %}
+	<a href="/tags/{{ tag }}">{{ tag }}</a>
+{% endfor %}

@@ -1,0 +1,14 @@
+---
+layout: archive
+title: Articles
+---
+
+{% for article in collections.articles %}
+<article>
+	<h3>
+		<span class="article-date">{{ article.date | isoDate }}</span>
+		<a href="{{ article.url }}">{{ article.data.title }}</a>
+	</h3>
+	<p>{{ article.data.intro }}</p>
+</article>
+{% endfor %}

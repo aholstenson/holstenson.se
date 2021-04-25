@@ -1,0 +1,29 @@
+{% extends './base.njk' %}
+
+{% block content %}
+<main class="page">
+	<article>
+		<h1>{{ title }}</h1>
+		<div class="article-metadata">
+			This article was posted on {{ date | isoDate }}
+			{% if tags | length %}
+				with the tags
+				{%- for tag in tags -%}
+					{%- if loop.index0 > 0 -%}
+						{%- if loop.last %}
+							and
+						{%- else -%}
+							,
+						{%- endif -%}
+					{% endif %}
+					<a href="/tags/{{ tag }}">{{ tag }}</a>
+				{%- endfor -%}
+			{% endif %}
+		</div>
+
+		<p>{{ intro }}</p>
+
+		{{ content | safe }}
+	</article>
+</main>
+{% endblock %}

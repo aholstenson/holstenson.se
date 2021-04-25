@@ -1,0 +1,11 @@
+{% extends './base.njk' %}
+
+{% block content %}
+<main class="page">
+	<h1>
+		{%- if parent -%}<a href="{{ parent.url }}">{{ parent.name }}</a>:{%- endif %} {{ title }}
+	</h1>
+
+	{{ content | safe }}
+</main>
+{% endblock %}

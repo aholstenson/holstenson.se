@@ -1,0 +1,23 @@
+---
+layout: archive
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+permalink: /tags/{{ tag }}/
+eleventyComputed:
+  title: "{{ tag }}"
+parent:
+  url: /tags
+  name: Tag
+---
+
+{% for article in collections[tag] %}
+<article>
+	<h3>
+		<span class="article-date">{{ article.date | isoDate }}</span>
+		<a href="{{ article.url }}">{{ article.data.title }}</a>
+	</h3>
+	<p>{{ article.data.intro }}</p>
+</article>
+{% endfor %}

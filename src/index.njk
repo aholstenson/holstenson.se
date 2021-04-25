@@ -1,0 +1,47 @@
+---
+title: Andreas Holstenson
+---
+{% extends './layouts/base.njk' %}
+
+{% block content %}
+<main>
+	<div class="home-callout">
+		<div>
+			<h1>👋 Hi, I'm Andreas Holstenson</h1>
+
+			<p>
+				I work with user-centered problem solving using technology.
+				You'll find me in Malmö, Sweden.
+			</p>
+
+			<p class="home-links">
+				Want to get in touch? Send me an e-mail at
+				<a href="mailto:a@holstenson.se">a@holstenson.se</a>,
+				tweet me <a href="https://twitter.com/aholstenson">@aholstenson</a> or
+				connect with me on <a href="http://se.linkedin.com/in/aholstenson">LinkedIn</a>.
+			</p>
+
+			<p class="home-links">
+				You can find some of my code on <a href="https://github.com/aholstenson">GitHub</a>
+				if that's your thing.
+			</p>
+		</div>
+	</div>
+
+	{% if collections.articles | length %}
+		<div class="article-list">
+			<h2>Latest updates</h2>
+
+			{%- for article in collections.articles | limit(5) -%}
+				<article>
+					<h3>
+						<span class="article-date">{{ article.date | isoDate }}</span>
+						<a href="{{ article.url }}">{{ article.data.title }}</a>
+					</h3>
+					<p>{{ article.data.intro }}</p>
+				</article>
+			{%- endfor -%}
+		</div>
+	{% endif %}
+</main>
+{% endblock %}

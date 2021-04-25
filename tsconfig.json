@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "module":"ESNext",
+
+    "noEmit": true,
+  },
+  "include": [
+    "src/assets/js"
+  ],
+  "exclude": [ "node_modules" ]
+}
