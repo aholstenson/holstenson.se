@@ -1,3 +1,4 @@
 node_modules
-/.11ty
+.pnpm-store
 /build
+/.11ty-vite

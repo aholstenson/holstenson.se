@@ -1,22 +1,9 @@
+// Picked up automatically by Vite. CSS @import resolution (incl. node_modules
+// like sanitize.css) and minification are handled by Vite itself.
 module.exports = {
 	plugins: [
-		require('postcss-easy-import')({}),
-		require('postcss-import-url')({}),
-
 		require('postcss-preset-env')({
 			stage: 0,
-		}),
-
-		require('cssnano')({
-			preset: [
-				'advanced',
-				{
-					discardComments: {
-						removeAll: true,
-					},
-					reduceIdents: false,
-				},
-			],
 		}),
 	],
 };
