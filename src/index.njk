@@ -23,7 +23,7 @@ title: Andreas Holstenson
 
 			<p class="home-links">
 				You can find some of my code on <a href="https://github.com/aholstenson">GitHub</a>
-				if that's your thing.{% if building | length %} In the last 90 days I've worked mostly on {% for repo in building %}<a href="{{ repo.url }}">{{ repo.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.{% endif %}
+				if that's your thing.{% if building | length %} In the last 90 days I've worked mostly on {% for repo in building %}{% if not loop.first %}{% if loop.last %} and {% else %}, {% endif %}{% endif %}<a href="{{ repo.url }}">{{ repo.name }}</a>{% endfor %}.{% endif %}
 			</p>
 
 			<p class="home-links">

@@ -23,7 +23,8 @@ export default async function () {
 	if (token) headers.Authorization = `Bearer ${token}`;
 
 	try {
-		// fullName -> latest push timestamp
+		// fullName -> { pushes, latest } so we can rank by how much was
+		// actually worked on, with recency as the tiebreaker.
 		const seen = new Map();
 
 		// Events API caps at 300 events / 90 days, whichever comes first.
@@ -52,7 +53,12 @@ export default async function () {
 				if (ts < since) continue;
 
 				const prev = seen.get(fullName);
-				if (prev === undefined || ts > prev) seen.set(fullName, ts);
+				if (prev === undefined) {
+					seen.set(fullName, { pushes: 1, latest: ts });
+				} else {
+					prev.pushes += 1;
+					if (ts > prev.latest) prev.latest = ts;
+				}
 			}
 
 			// Events are reverse-chronological; once the page tail is older
@@ -62,7 +68,7 @@ export default async function () {
 		}
 
 		return Array.from(seen.entries())
-			.sort((a, b) => b[1] - a[1])
+			.sort((a, b) => b[1].pushes - a[1].pushes || b[1].latest - a[1].latest)
 			.slice(0, MAX_REPOS)
 			.map(([fullName]) => {
 				const [owner, repo] = fullName.split('/');
