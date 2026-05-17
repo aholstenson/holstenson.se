@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  schedule:
+    # Daily, refreshes the "what I'm building" repo list.
+    - cron: '17 6 * * *'
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -22,6 +26,8 @@ jobs:
           cache: pnpm
 
       - name: Install and Build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pnpm install --frozen-lockfile
           pnpm run build

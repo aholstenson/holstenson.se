@@ -7,7 +7,7 @@ title: Andreas Holstenson
 <main>
 	<div class="home-callout">
 		<div>
-			<h1>👋 Hi, I'm Andreas Holstenson</h1>
+			<h1><span class="wave" aria-hidden="true">👋</span> Hi, I'm Andreas Holstenson</h1>
 
 			<p>
 				I work with user-centered problem solving using technology.
@@ -23,12 +23,12 @@ title: Andreas Holstenson
 
 			<p class="home-links">
 				You can find some of my code on <a href="https://github.com/aholstenson">GitHub</a>
-				if that's your thing.
+				if that's your thing.{% if building | length %} In the last 90 days I've worked mostly on {% for repo in building %}<a href="{{ repo.url }}">{{ repo.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.{% endif %}
 			</p>
 
 			<p class="home-links">
-				Some of my current focus is on real-time collaboration and non-chat interfaces for AI.
-				You can see some of that in <a href="https://protopaper.com/">Protopaper</a>.
+				Outside of open source I'm currently exploring real-time collaboration and non-chat
+				interfaces for AI, you can see some of that in <a href="https://protopaper.com/">Protopaper</a>.
 			</p>
 		</div>
 	</div>

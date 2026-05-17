@@ -14,6 +14,9 @@
 	--accent-bright: #7db4ff;
 
 	--page-top-gap: 3em;
+
+	--pointer-x: 50vw;
+	--pointer-y: 25vh;
 }
 
 @media (--large-window) {
@@ -22,14 +25,19 @@
 	}
 }
 
-body {
-	min-height: 100vh;
+html {
+	min-height: 100%;
 
 	background-color: var(--ink);
 	background-image:
 		radial-gradient(120% 80% at 50% 0%, rgba(77, 151, 255, 0.12) 0%, transparent 55%),
 		linear-gradient(180deg, var(--ink-soft) 0%, var(--ink) 60%);
 	background-attachment: fixed;
+}
+
+body {
+	min-height: 100vh;
+
 	color: var(--text);
 
 	font-family: 'Schibsted Grotesk', system-ui, sans-serif;
@@ -37,6 +45,45 @@ body {
 	line-height: 1.65;
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
+
+	position: relative;
+}
+
+/* Subtle glow that drifts toward the pointer (position fed by main.ts). */
+body::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 60em;
+	height: 60em;
+	z-index: -1;
+	pointer-events: none;
+
+	background-image: radial-gradient(
+		closest-side,
+		rgba(125, 180, 255, 0.16) 0%,
+		rgba(125, 180, 255, 0.06) 45%,
+		transparent 100%
+	);
+
+	/* translate %s are relative to this box, so -50% centers it on the pointer */
+	transform: translate(
+		calc(var(--pointer-x) - 50%),
+		calc(var(--pointer-y) - 50%)
+	);
+	will-change: transform;
+
+	opacity: 0;
+	transition:
+		transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+		opacity 0.6s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) and (pointer: fine) {
+	body:hover::before {
+		opacity: 1;
+	}
 }
 
 a {
@@ -215,6 +262,11 @@ h1 {
 	color: var(--text-muted);
 }
 
+.wave {
+	display: inline-block;
+	transform-origin: 75% 75%;
+}
+
 @media (prefers-reduced-motion: no-preference) {
 	.home-callout > div > * {
 		animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
@@ -240,6 +292,10 @@ h1 {
 		animation-delay: 0.49s;
 	}
 
+	.home-callout > div > *:nth-child(6) {
+		animation-delay: 0.6s;
+	}
+
 	.article-list {
 		animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.5s backwards;
 	}
@@ -252,6 +308,27 @@ h1 {
 		to {
 			opacity: 1;
 			transform: translateY(0);
+		}
+	}
+
+	.wave:hover {
+		animation: wave 1.6s ease-in-out;
+	}
+
+	@keyframes wave {
+		0%,
+		60%,
+		100% {
+			transform: rotate(0deg);
+		}
+		10%,
+		30%,
+		50% {
+			transform: rotate(16deg);
+		}
+		20%,
+		40% {
+			transform: rotate(-10deg);
 		}
 	}
 }
